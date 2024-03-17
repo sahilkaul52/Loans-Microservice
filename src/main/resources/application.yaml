@@ -21,11 +21,15 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: true
+  rabbitmq:
+    host: "localhost"
+    port: 5672
+    username: "guest"
+    password: "guest"
 
 
   profiles:
-    active:
-      - "qa"
+    active: prod
 
 loans:
   message: "Welcome to EazyBank loans related local APIs "
