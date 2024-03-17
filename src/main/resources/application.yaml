@@ -10,24 +10,23 @@ spring:
   h2:
     console:
       enabled: true
+  application:
+    name: loans
+
+  config:
+    import: "optional:configserver:http://localhost:8071"
+
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect
     hibernate:
       ddl-auto: update
     show-sql: true
 
-  config:
-    import:
-      - "application_qa.yaml"
-      - "application_prod.yaml"
 
   profiles:
     active:
       - "qa"
 
-
-build:
-  version: "3.0"
 
 loans:
   message: "Welcome to EazyBank loans related local APIs "
