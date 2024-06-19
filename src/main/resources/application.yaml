@@ -1,4 +1,3 @@
-
 server:
   port: 8090
 spring:
@@ -11,7 +10,7 @@ spring:
     console:
       enabled: true
   application:
-    name: loans
+    name: "loans"
 
   config:
     import: "optional:configserver:http://localhost:8071"
@@ -21,20 +20,57 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: true
-  rabbitmq:
-    host: "localhost"
-    port: 5672
-    username: "guest"
-    password: "guest"
-
 
   profiles:
-    active: prod
-
+    active: "prod"
 
 management:
   endpoints:
     web:
       exposure:
         include: "*"
+  metrics:
+    tags:
+      application: "loans"
+  info:
+    env:
+      enabled: true
+  health:
+    livenessstate:
+      enabled: true
+    readinessstate:
+      enabled: true
+  endpoint:
+    health:
+      probes:
+        enabled: true
+      show-details: always
+    shutdown:
+      enabled: true
 
+endpoints:
+  shutdown:
+    enabled: true
+
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    serviceUrl:
+      defaultZone: http://localhost:8070/eureka/
+
+info:
+  app:
+    name: "loans"
+    description: "Loans Application"
+    version: "1.0.0"
+
+logging:
+  level:
+    com:
+      example:
+        loans: DEBUG
+  pattern:
+    level: "%5p[loans,%X{trace_id},%X{span_id}]"
